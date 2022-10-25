@@ -1,7 +1,7 @@
 
 
 def testing(rate_now,rate_interesting,length):
-    tolorence_individual=0.9
+    tolorence_individual=0.5
     tolorence_total=0.5
     temp=0
     for i in range(length):
