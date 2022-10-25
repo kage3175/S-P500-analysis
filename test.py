@@ -1,13 +1,13 @@
 
 
 def testing(rate_now,rate_interesting,length):
-    tolorence_individual=0.75
+    tolorence_individual=0.9
     tolorence_total=0.5
     temp=0
     for i in range(length):
         if temp>=2:
             break
-        if -0.002<rate_interesting[i]<0.002:
+        if -0.003<rate_interesting[i]<0.003:
             if -0.006<rate_now<0.006:
                 continue
         if (rate_now[i]-rate_interesting[i]*(1-tolorence_individual))*(rate_now[i]-rate_interesting[i]*(1+tolorence_individual))>=0:
@@ -64,7 +64,7 @@ def main():
     result=finding(data,data_interest,length_interest)
     print(result)
     for location in result:
-        print(result,":", end=' ')
+        print(location,":", end=' ')
         for i in range(length_interest):
             print(data[location+i],end=', ')
         print("")
