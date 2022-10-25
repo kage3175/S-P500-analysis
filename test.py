@@ -7,10 +7,13 @@ def testing(rate_now,rate_interesting,length):
     for i in range(length):
         if temp>=2:
             break
+        if -0.002<rate_interesting[i]<0.002:
+            if -0.006<rate_now<0.006:
+                continue
         if (rate_now[i]-rate_interesting[i]*(1-tolorence_individual))*(rate_now[i]-rate_interesting[i]*(1+tolorence_individual))>=0:
             temp+=1
     if temp<2:
-        if ((rate_now[length]-rate_now[0])-(rate_interesting[length]-rate_interesting[length])*(1-tolorence_total))*((rate_now[length]-rate_now[0])-(rate_interesting[length]-rate_interesting[length])*(1+tolorence_total))<=0:
+        if ((rate_now[length-1]-rate_now[0])-(rate_interesting[length-1]-rate_interesting[0])*(1-tolorence_total))*((rate_now[length-1]-rate_now[0])-(rate_interesting[length-1]-rate_interesting[0])*(1+tolorence_total))<=0:
             return 1
     return 0
 
@@ -26,7 +29,6 @@ def finding(datas, data_interest, length_interest):
     data_now=[]
     result=[]
     temp=length_interest-1
-    print(temp)
     for i in range(length_interest):
         data_now.append(datas[i])
     rate_now=rate(data_now,length_interest-1)
@@ -35,17 +37,12 @@ def finding(datas, data_interest, length_interest):
     temp+=1
     while True:
         try:
-            print("a")
             data_now.pop(0)
-            print("a")
             data_now.append(datas[temp])
-            print("a")
-            print(data_now)
-            print("a")
+            #print(data_now)
             temp+=1
             location+=1
             rate_now=rate(data_now,length_interest-1)
-            print("a")
             #print(rate_now)
             if testing(rate_now,rate_interest,length_interest-1):
                 result.append(location)
@@ -64,8 +61,12 @@ def main():
     data_interest=list(map(float,lines.split("\n")))
     file.close()
     length_interest=len(data_interest)
-    print(1)
     result=finding(data,data_interest,length_interest)
     print(result)
+    for location in result:
+        print(result,":", end=' ')
+        for i in range(length_interest):
+            print(data[location+i],end=', ')
+        print("")
 
 main()
